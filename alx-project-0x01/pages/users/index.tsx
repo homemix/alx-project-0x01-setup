@@ -1,13 +1,30 @@
-import React from "react";
-import Header from "@/components/layout/Header";
+import UserCard from "@/components/common/UserCard";
+import { UserProps } from "@/interfaces";
 
-const IndexUsers : React.FC = ()=>{
-    return(
-        <div className="flex justify-center items-center h-screen">
-            <Header/>
-            <h1 className="text-7xl font-thin">Welcome Indexusers Page</h1>
-        </div>
-    )
-
+interface UsersPageProps {
+    posts: UserProps[];
 }
-export default IndexUsers;
+
+const Users = ({ posts }: UsersPageProps) => {
+    return (
+        <div>
+            <h1>Users List</h1>
+            {posts.map((user) => (
+                <UserCard key={user.id} {...user} />
+            ))}
+        </div>
+    );
+};
+
+export async function getStaticProps() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users")
+    const posts = await response.json()
+
+    return {
+        props: {
+            posts
+        }
+    }
+}
+
+export default Users;
