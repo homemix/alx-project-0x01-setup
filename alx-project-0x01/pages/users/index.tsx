@@ -1,5 +1,6 @@
 import UserCard from "@/components/common/UserCard";
-import { UserProps } from "@/interfaces";
+import {UserData, UserProps} from "@/interfaces";
+import {useState} from "react";
 
 interface UsersPageProps {
     posts: UserProps[];
@@ -26,5 +27,11 @@ export async function getStaticProps() {
         }
     }
 }
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+const handleAddUser = (newUser: UserData) => {
+    console.log("New user added:", newUser);
+};
+
 
 export default Users;
